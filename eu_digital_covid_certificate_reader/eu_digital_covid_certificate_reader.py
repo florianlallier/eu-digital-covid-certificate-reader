@@ -2,6 +2,7 @@ import sys
 import base45
 import zlib
 import cbor2
+import json
 from PIL import Image
 from pyzbar import pyzbar
 
@@ -23,7 +24,10 @@ def main():
     # CBOR to JSON
     json_format = cbor2.loads(cbor2.loads(cbor_format).value[2])
 
-    print(json_format)
+    # JSON to STRING
+    string_format = json.dumps(json_format, indent = 4)
+
+    print(string_format)
 
 
 if __name__ == "__main__":
