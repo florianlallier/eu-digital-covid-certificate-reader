@@ -57,17 +57,18 @@ def main():
     # CBOR to JSON
     json_format = cbor2.loads(cbor2.loads(cbor_format).value[2])
 
-    certificate_type = get_certificate_type(json_format[-260][1])
+    certificate = json_format[-260][1]
+    certificate_type = get_certificate_type(certificate)
 
     if certificate_type == "v":
         # Print vaccination certificate informations
-        print_vaccination_certificate_informations(json_format[-260][1])
+        print_vaccination_certificate_informations(certificate)
     elif certificate_type == "t":
         # Print test certificate informations
-        print_test_certificate_informations(json_format[-260][1])
+        print_test_certificate_informations(certificate)
     elif certificate_type == "r":
         # Print recovery certificate informations
-        print_recovery_certificate_informations(json_format[-260][1])
+        print_recovery_certificate_informations(certificate)
     else:
         print("Could not read the certificate.")
 
