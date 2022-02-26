@@ -16,6 +16,29 @@ def get_certificate_type(certificate):
         return None
 
 
+def print_vaccination_certificate_informations(certificate):
+    print("Name, Surname(s) and forename(s): " + certificate["nam"]["fn"] + certificate["nam"]["gn"])
+    print("Date of birth: " + certificate["dob"])
+    print("Disease or agent targeted: " + certificate["v"][0]["tg"])
+    print("Vaccine/prophylaxis: " + certificate["v"][0]["vp"])
+    print("Vaccine medicinal product: " + certificate["v"][0]["mp"])
+    print("Vaccine marketing authorisation holder or manufacturer: " + certificate["v"][0]["ma"])
+    print("Number in a series of vaccinations/doses and the overall number of doses in the series: " + str(certificate["v"][0]["dn"]) + "/" + str(certificate["v"][0]["sd"]))
+    print("Date of vaccination: " + certificate["v"][0]["dt"])
+    print("Member State of vaccination: " + certificate["v"][0]["co"])
+    print("Certificate issuer: " + certificate["v"][0]["is"])
+
+
+def print_test_certificate_informations(certificate):
+    # TODO
+    print("This is a test certificate. Not yet implemented.")
+
+
+def print_recovery_certificate_informations(certificate):
+    # TODO
+    print("This is a recovery certificate. Not yet implemented.")
+
+
 def main():
     filename = sys.argv[1]
     image = Image.open(filename)
@@ -38,24 +61,13 @@ def main():
 
     if certificate_type == "v":
         # Print vaccination certificate informations
-        print("Name, Surname(s) and forename(s): " + json_format[-260][1]["nam"]["fn"] + json_format[-260][1]["nam"]["gn"])
-        print("Date of birth: " + json_format[-260][1]["dob"])
-        print("Disease or agent targeted: " + json_format[-260][1]["v"][0]["tg"])
-        print("Vaccine/prophylaxis: " + json_format[-260][1]["v"][0]["vp"])
-        print("Vaccine medicinal product: " + json_format[-260][1]["v"][0]["mp"])
-        print("Vaccine marketing authorisation holder or manufacturer: " + json_format[-260][1]["v"][0]["ma"])
-        print("Number in a series of vaccinations/doses and the overall number of doses in the series: " + str(json_format[-260][1]["v"][0]["dn"]) + "/" + str(json_format[-260][1]["v"][0]["sd"]))
-        print("Date of vaccination: " + json_format[-260][1]["v"][0]["dt"])
-        print("Member State of vaccination: " + json_format[-260][1]["v"][0]["co"])
-        print("Certificate issuer: " + json_format[-260][1]["v"][0]["is"])
+        print_vaccination_certificate_informations(json_format[-260][1])
     elif certificate_type == "t":
         # Print test certificate informations
-        # TODO
-        print("This is a test certificate. Not yet implemented.")
+        print_test_certificate_informations(json_format[-260][1])
     elif certificate_type == "r":
         # Print recovery certificate informations
-        # TODO
-        print("This is a recovery certificate. Not yet implemented.")
+        print_recovery_certificate_informations(json_format[-260][1])
     else:
         print("Could not read the certificate.")
 
