@@ -2,7 +2,6 @@ import sys
 import base45
 import zlib
 import cbor2
-import json
 from PIL import Image
 from pyzbar import pyzbar
 
@@ -24,10 +23,17 @@ def main():
     # CBOR to JSON
     json_format = cbor2.loads(cbor2.loads(cbor_format).value[2])
 
-    # JSON to STRING
-    string_format = json.dumps(json_format, indent = 4)
-
-    print(string_format)
+    # Print vaccination certificate informations
+    print("Name, Surname(s) and forename(s): " + json_format[-260][1]["nam"]["fn"] + json_format[-260][1]["nam"]["gn"])
+    print("Date of birth: " + json_format[-260][1]["dob"])
+    print("Disease or agent targeted: " + json_format[-260][1]["v"][0]["tg"])
+    print("Vaccine/prophylaxis: " + json_format[-260][1]["v"][0]["vp"])
+    print("Vaccine medicinal product: " + json_format[-260][1]["v"][0]["mp"])
+    print("Vaccine marketing authorisation holder or manufacturer: " + json_format[-260][1]["v"][0]["ma"])
+    print("Number in a series of vaccinations/doses and the overall number of doses in the series: " + str(json_format[-260][1]["v"][0]["dn"]) + "/" + str(json_format[-260][1]["v"][0]["sd"]))
+    print("Date of vaccination: " + json_format[-260][1]["v"][0]["dt"])
+    print("Member State of vaccination: " + json_format[-260][1]["v"][0]["co"])
+    print("Certificate issuer: " + json_format[-260][1]["v"][0]["is"])
 
 
 if __name__ == "__main__":
