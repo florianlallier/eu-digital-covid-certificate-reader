@@ -16,9 +16,13 @@ def get_certificate_type(certificate):
         return None
 
 
-def print_vaccination_certificate_informations(certificate):
+def print_common_certificate_informations(certificate):
     print("Name, Surname(s) and forename(s): " + certificate["nam"]["fn"] + certificate["nam"]["gn"])
     print("Date of birth: " + certificate["dob"])
+
+
+def print_vaccination_certificate_informations(certificate):
+    print_common_certificate_informations(certificate)
     print("Disease or agent targeted: " + certificate["v"][0]["tg"])
     print("Vaccine/prophylaxis: " + certificate["v"][0]["vp"])
     print("Vaccine medicinal product: " + certificate["v"][0]["mp"])
@@ -30,11 +34,13 @@ def print_vaccination_certificate_informations(certificate):
 
 
 def print_test_certificate_informations(certificate):
+    print_common_certificate_informations(certificate)
     # TODO
     print("This is a test certificate. Not yet implemented.")
 
 
 def print_recovery_certificate_informations(certificate):
+    print_common_certificate_informations(certificate)
     # TODO
     print("This is a recovery certificate. Not yet implemented.")
 
