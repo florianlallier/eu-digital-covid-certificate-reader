@@ -5,6 +5,26 @@ import cbor2
 from PIL import Image
 from pyzbar import pyzbar
 
+def decode(filename):
+    image = Image.open(filename)
+    qrcode = pyzbar.decode(image)
+    data = qrcode[0].data.decode('UTF-8')
+
+    # HCERT to BASE45
+    base45_format = data[4:]
+
+    # BASE45 to ZLIB
+    zlib_format = base45.b45decode(base45_format)
+
+    # ZLIB to CBOR
+    cbor_format = zlib.decompress(zlib_format)
+
+    # CBOR to JSON
+    json_format = cbor2.loads(cbor2.loads(cbor_format).value[2])
+
+    return json_format[-260][1]
+
+
 def get_certificate_type(certificate):
     if "v" in certificate:
         return "v"
@@ -47,23 +67,8 @@ def print_recovery_certificate_informations(certificate):
 
 def main():
     filename = sys.argv[1]
-    image = Image.open(filename)
-    qrcode = pyzbar.decode(image)
-    data = qrcode[0].data.decode('UTF-8')
-
-    # HCERT to BASE45
-    base45_format = data[4:]
-
-    # BASE45 to ZLIB
-    zlib_format = base45.b45decode(base45_format)
-
-    # ZLIB to CBOR
-    cbor_format = zlib.decompress(zlib_format)
-
-    # CBOR to JSON
-    json_format = cbor2.loads(cbor2.loads(cbor_format).value[2])
-
-    certificate = json_format[-260][1]
+    
+    certificate = decode(filename)
     certificate_type = get_certificate_type(certificate)
 
     if certificate_type == "v":
