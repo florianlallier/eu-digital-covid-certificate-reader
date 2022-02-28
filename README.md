@@ -1,5 +1,7 @@
 # eu-digital-covid-certificate-reader
 
+A simple EU Digital COVID Certificate reader.
+
 ## Usage
 
 ```console
