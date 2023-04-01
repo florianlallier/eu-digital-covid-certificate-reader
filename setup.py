@@ -5,7 +5,7 @@ with open("README.md", 'r') as f:
 
 setup(
     name = 'eu-digital-covid-certificate-reader',
-    version = '0.0.1',
+    version = '0.0.2',
     description = 'A simple EU Digital COVID Certificate reader.',
     license = 'MIT',
     long_description = long_description,
