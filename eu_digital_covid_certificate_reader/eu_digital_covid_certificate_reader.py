@@ -55,8 +55,12 @@ def print_vaccination_certificate_informations(certificate):
 
 def print_test_certificate_informations(certificate):
     print_common_certificate_informations(certificate)
-    # TODO
-    print("This is a test certificate. Not yet implemented.")
+    print("Disease or agent targeted: " + certificate["t"][0]["tg"])
+    print("Type of test / PCR / Antigen: " + certificate["t"][0]["tt"])
+    print("Test results: " + certificate["t"][0]["tr"])
+    print("Date and hour of sample: " + certificate["t"][0]["sc"])
+    print("Certification authority identifier: " + certificate["t"][0]["is"])
+    print("Member State of test: " + certificate["t"][0]["co"])
 
 
 def print_recovery_certificate_informations(certificate):
